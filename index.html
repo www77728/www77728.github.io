@@ -115,10 +115,24 @@
         const MIN_DELAY = 2000; 
 
         const BLOCKED_PROVIDERS = [
-            "microsoft", "nessly", "google", "digitalocean", "contabo", 
-            "hetzner", "ovh", "oracle", "aeza", "stark industries", 
-            "bl networks", "youtube", "amazon", "scaleway", "sk telecom"
-        ];
+    // Твой базовый список
+    "microsoft", "nessly", "google", "digitalocean", "contabo", 
+    "hetzner", "ovh", "oracle", "aeza", "stark industries", 
+    "bl networks", "youtube", "amazon", "scaleway", "sk telecom",
+    
+    // Новые провайдеры из твоего списка
+    "aventice", 
+    "egihosting", 
+    "datacamp", 
+    "vpn consumer brussels", 
+    "mvps ltd", // Также известно как mvps.net
+    
+    // Дополнительные связанные сети (для надежности)
+    "datacamp limited", 
+    "cdn77", 
+    "datapacket",
+    "f.n.s. holdings" // Связан с VPN Consumer
+];
         const BOT_UA_PATTERN = /bot|googlebot|crawler|spider|robot|crawling|ToolBot|curl|wget|headless|python|facebook|twitter|telegram|whatsapp|slack|skype/i;
 
         const startTime = Date.now();
