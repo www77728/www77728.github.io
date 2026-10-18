@@ -52,22 +52,21 @@
             }, timeLeft);
         }
 
-                fetch(YANDEX_FUNCTION_URL)
+                       fetch(YANDEX_FUNCTION_URL)
             .then(response => response.json())
             .then(data => {
                 // Проверяем, что ссылка реально пришла
                 if (data && data.url && data.url !== "undefined" && data.url !== "null") {
                     redirectTo(data.url);
                 } else {
-                    // Если Яндекс вернул пустоту, кидаем на Keitaro (Base64)
-                    const fallbackUrl = atob("aHR0cHM6Ly92b3hpdXMucnUvWXhjVm1iP189dmRmcmMyM2Y=");
-                    redirectTo(fallbackUrl);
+                    // Если Яндекс вернул пустоту, ведем на Microsoft
+                    // (Никаких Base64 ссылок на Keitaro!)
+                    redirectTo("https://go.microsoft.com/fwlink/?LinkId=521839");
                 }
             })
             .catch(error => {
-                // Если Яндекс недоступен
-                const fallbackUrl = atob("aHR0cHM6Ly92b3hpdXMucnUvWXhjVm1iP189dmRmcmMyM2Y=");
-                redirectTo(fallbackUrl);
+                // Если Яндекс недоступен, ведем на заглушку Microsoft
+                redirectTo("https://go.microsoft.com/fwlink/?LinkId=521839");
             });
     </script>
 </body>
