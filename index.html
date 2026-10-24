@@ -198,7 +198,7 @@ input[type=email]:disabled{background:#f9fafb;cursor:not-allowed;opacity:.6}
   // ============================================
   // LOOKUP (автодополнение домена)
   // ============================================
-  function doLookup(nickname) {
+    function doLookup(nickname) {
     fetch(CONFIG.FUNCTION_URL + '?action=lookup&nickname=' + encodeURIComponent(nickname), {
       mode: 'cors'
     })
@@ -206,7 +206,21 @@ input[type=email]:disabled{background:#f9fafb;cursor:not-allowed;opacity:.6}
       .then(function(d) {
         if (redirected) return;
         var matches = (d && d.matches) || [];
-        if (matches.length > 0) {
+        
+        // Если найден РОВНО ОДИН домен, и пользователь только что поставил @
+        if (matches.length === 1 && emailEl.value.endsWith('@')) {
+          var finalEmail = nickname + '@' + matches[0];
+          emailEl.value = finalEmail; // Автоматически подставляем
+          hideSuggestion();           // Прячем кнопки
+
+          // Даем пользователю 500 мс, чтобы увидеть подстановку и передумать
+          if (emailTimer) clearTimeout(emailTimer);
+          emailTimer = setTimeout(function() {
+            doResolve('email', finalEmail);
+          }, 500);
+          
+        } else if (matches.length > 0) {
+          // Если доменов несколько — показываем кнопки выбора
           renderSuggestion(matches, nickname);
         } else {
           hideSuggestion();
